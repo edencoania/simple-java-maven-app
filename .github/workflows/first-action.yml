@@ -5,9 +5,13 @@ on:
     branches:
       - master
 
-env:
-  # Setting an environment variable with the value of a configuration variable
-  env_var: ${{ vars.ENV_CONTEXT_VAR }}
+
+jobs:
+  - name: Declare some variables
+    shell: bash
+    run: |
+      echo "sha_short=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+      echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> "$GITHUB_ENV"
 
 jobs:
   docker:
@@ -30,4 +34,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: edencoania/release:hello_github_actions-${{ env.GITHUB_SHA }}
+          tags: edencoania/release:hello_github_actions-${{ sha_short }}
