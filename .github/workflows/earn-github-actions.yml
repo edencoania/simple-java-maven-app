@@ -1,10 +1,11 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
-on:
-    push:
-    branches:
-      - 'main'
+on: push:
 jobs:
+  env:
+    DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+
   docker:
     runs-on: ubuntu-latest
     steps:
