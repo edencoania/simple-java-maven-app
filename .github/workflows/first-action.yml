@@ -30,4 +30,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: edencoania/release:hello_github_actions-${{ sha_short }}
+          tags: edencoania/release:hello_github_actions-${{ github.sha }}
