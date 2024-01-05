@@ -38,5 +38,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: edencoania/release:hello_actions-${{ env.VERSION + 1 }}
+          tags: edencoania/release:hello_actions-${{ env.VERSION }}
 
