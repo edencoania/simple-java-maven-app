@@ -30,7 +30,7 @@ jobs:
           tags: edencoania/release:hello_github_actions-${{ github.sha }}
 
       - name: Set version
-        run: echo "VERSION=$((VERSION + 1))" >> $GITHUB_ENV
+        run: env.VERSION=$((env.VERSION + 1))
 
 
       -
