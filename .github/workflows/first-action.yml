@@ -5,9 +5,6 @@ on:
     branches:
       - master
 
-env:
-  VERSION=${{ env.VERSION }} + 1
-
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -30,6 +27,26 @@ jobs:
         with:
           push: true
           tags: edencoania/release:hello_github_actions-${{ github.sha }}
+
+      - name: Read package.json
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./.version
+      - name: Echo package.json
+        run: echo "{{ steps.package.outputs.content }}"
+        env:
+          VERSION= "${{ steps.package.outputs.content }}"
+
+
+      - name: Overwrite file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: path/to/file.js
+          write-mode: overwrite
+          contents: |
+            console.log({{$VERSION}} +1)
+            
 
       - name: Increment variable
         run: echo "VERSION=$((VERSION + 1))" >> $GITHUB_ENV
