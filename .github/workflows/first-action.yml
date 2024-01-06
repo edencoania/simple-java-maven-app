@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  VERSION=${{ VERSION }} + 1
+  VERSION=${{ env.VERSION }} + 1
 
 jobs:
   docker:
