@@ -1,0 +1,44 @@
+- name: My first play
+  hosts: all
+  become: true
+  remote_user: ubuntu
+
+  tasks:
+   - name: Ping my hosts
+     ansible.builtin.ping:
+
+   - name: install docker.io
+     ansible.builtin.apt:
+       name: docker.io
+       state: latest
+       update_cache: yes
+
+   - name: start docker service
+     ansible.builtin.service:
+       name: docker.service
+       state: started
+
+   - name: Update the repository cache and install nginx 
+     ansible.builtin.apt:
+       name: pip
+       state: latest
+       update_cache: yes
+
+
+   - name: Update the repository cache and install nginx
+     ansible.builtin.pip:
+       name:
+       - flask
+       - gunicorn
+       - requests 
+
+   - name: Copy file with owner and permissions
+     ansible.builtin.copy:
+        src: ./weather
+        dest: /home/ubuntu/
+        mode: '0644'
+
+   - name: Run a script using an executable in a system path
+     ansible.builtin.shell:
+        cmd: python3 weather/app.py&
+
