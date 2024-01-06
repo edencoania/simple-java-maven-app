@@ -1,4 +1,11 @@
 name: Generate
+ 
+on: 
+  push:
+    branches:
+      - master
+
+
 jobs:
   generate:
     steps:
