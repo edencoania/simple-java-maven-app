@@ -7,8 +7,8 @@ on:
 
 
 jobs:
-  runs-on: ubuntu-latest
   generate:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: 'Get Previous tag'
