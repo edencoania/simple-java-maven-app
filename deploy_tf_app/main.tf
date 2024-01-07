@@ -47,7 +47,7 @@ resource "aws_instance" "app_server" {
   }
 
 
-provisioner "null_resource" "local_provisioner" {
+provisioner "local_provisioner" {
     
   triggers = {
     instance_id = aws_instance.app_server.id
