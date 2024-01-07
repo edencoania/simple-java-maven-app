@@ -4,9 +4,7 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.16"
     }
-  }
   
-  required_providers {
     ansible = {
       version = "~> 1.1.0"
       source  = "ansible/ansible"
