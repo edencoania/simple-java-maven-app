@@ -34,7 +34,7 @@ resource "aws_instance" "app_server" {
 	}
   key_name = "weather" 
 } 
-  provisioner "null_resource" "file" {
+resource "null_resource" "file" {
     source      = "./ansible/weather/app.py"
     destination = "/home/ubuntu/app.py" 
     
