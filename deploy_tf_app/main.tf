@@ -35,8 +35,11 @@ resource "aws_instance" "app_server" {
   key_name = "weather" 
 } 
 resource "null_resource" "file" {
+    
+  provisioner "file" {
     source      = "./ansible/weather/app.py"
-    destination = "/home/ubuntu/app.py" 
+    destination = "/home/ubuntu/app.py"
+  } 
     
     connection {
       type        = "ssh"
@@ -45,7 +48,6 @@ resource "null_resource" "file" {
       host        = aws_instance.app_server.public_ip  
     } 
   
-
 
   provisioner "local-exec" {
     command = <<EOT
