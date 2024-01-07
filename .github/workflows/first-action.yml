@@ -45,6 +45,8 @@ jobs:
         
       - name: Run shell commands
         run: |
-          ssh -i ${{secrets.SSH_PRIVATE_KEY}} ubuntu@13.57.56.220 "pkill -9 python3 && python3 app.py"
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > ssh_key
+          chmod 600 ssh_key
+          ssh -i ./ssh_key ubuntu@13.57.56.220 "pkill -9 python3 && python3 app.py"
           shell: bash
 
