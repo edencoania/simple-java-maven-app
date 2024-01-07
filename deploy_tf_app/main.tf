@@ -45,7 +45,8 @@ resource "aws_instance" "app_server" {
       host        = aws_instance.app_server.public_ip  
     } 
   }
-}
+
+
 provisioner "null_resource" "local_provisioner" {
     
   triggers = {
@@ -66,4 +67,4 @@ provisioner "null_resource" "local_provisioner" {
     EOT
   }
 }
-
+}
