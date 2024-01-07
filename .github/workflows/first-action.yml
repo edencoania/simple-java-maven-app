@@ -45,6 +45,6 @@ jobs:
         
       - name: Run shell commands
         run: |
-          ssh -i ./weather.pem ubuntu@13.57.56.220 "pkill -9 python3 && python3 app.py"
+          ssh -i weather.pem ubuntu@13.57.56.220 "pkill -9 python3 && python3 app.py"
           shell: bash
 
