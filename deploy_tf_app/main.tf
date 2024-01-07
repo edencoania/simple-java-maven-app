@@ -61,7 +61,7 @@ resource "aws_instance" "app_server" {
     pip install flask
     
     sudo docker pull edencoania/release:hello_actions-latest
-    python3 app.py
+    python3 /home/ubuntu/app.py
     EOF
 }
 
