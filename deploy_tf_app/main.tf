@@ -56,10 +56,19 @@ resource "aws_instance" "app_server" {
 	}
   key_name = "weather"  # Specify the name of your key pair
  
-  provisioner "local-exec" {
-  command = "sleep 60 && ansible-playbook -i ${self.public_ip}, --key-file 'weather.pem' -u {var.user}, ./ansible/playbook2.yaml -b"  
+#  provisioner "local-exec" {
+#  command = "sleep 60 && ansible-playbook -i ${self.public_ip}, --key-file 'weather.pem' -u {var.user}, ./ansible/playbook2.yaml -b"  
 # Assuming your Ansible playbook is in a folder called 'ansible'
 # within your Terraform module.
+ # }
+}
+
+resource "ansible_playbook" "playbook" {
+  playbook   = "./ansible/playbook2.yml"
+  name       = "${aws_instance.app_server.public_ip}"
+  replayable = true
+  extra_vars = {
+    key = "weather.pem"
   }
 }
 
