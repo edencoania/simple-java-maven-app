@@ -18,32 +18,6 @@ provider "aws" {
 }
 
 
-resource "aws_security_group" "allow_tls4" {
-  name        = "allow_tls4"
-  description = "Allow TLS inbound traffic"
-
-  ingress {
-    description      = "TLS from VPC"
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-
-}
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
-  tags = {
-    Name = "allow_tls4"
-  }
-}
-
 variable "Name" {
   type    = string
   default = "eden_instance"
@@ -53,26 +27,40 @@ resource "aws_instance" "app_server" {
   ami           = "ami-0ce2cb35386fc22e9"
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [aws_security_group.allow_tls4.id]  # Reference the correct security group
+  vpc_security_group_ids = ["sg-0d90c7173cfcc7073"]  # Reference the correct security group
 
   tags = {
         Name = var.Name
 	}
-  key_name = "weather"  # Specify the name of your key pair
+  key_name = "weather" 
  
-#  provisioner "local-exec" {
-#  command = "sleep 60 && ansible-playbook -i ${self.public_ip}, --key-file 'weather.pem' -u {var.user}, ./ansible/playbook2.yaml -b"  
-# Assuming your Ansible playbook is in a folder called 'ansible'
-# within your Terraform module.
- # }
-}
-
-resource "ansible_playbook" "playbook" {
-  playbook   = "./ansible/playbook2.yml"
-  name       = "${aws_instance.app_server.public_ip}"
-  replayable = true
-  extra_vars = {
-    key = "weather.pem"
+  #provisioner "ansible-local" {
+  #playbook_file   = "./ansible/playbook2.yml"
+  #extra_vars = {
+  #  key = "weather.pem"
+  #}
+  #}
+  provisioner "file" {
+    source      = "./ansible/weather/app.py"
+    destination = "/home/ubuntu/app.py" 
+    
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"  
+      private_key = file("weather.pem") 
+      host        = aws_instance.app_server.public_ip  
+    } 
   }
+    user_data = <<-EOF
+    #!/bin/bash
+    sudo apt update -y
+    sudo apt install docker.io -y
+    sudo systemctl enable docker
+    sudo apt install python3 -y
+    sudo apt install pip -y
+    pip install flask -y
+    sudo docker pull edencoania/release:hello_actions-latest
+    sudo python3 app.py&
+    EOF
 }
 
