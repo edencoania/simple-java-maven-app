@@ -48,7 +48,7 @@ jobs:
           playbook: ./playbook2.yaml
           directory: ./deploy_tf_app/ansible/
           key: ${{secrets.SSH_PRIVATE_KEY}}
-              inventory: [all]
+          inventory: 13.57.56.220
             
 
 
