@@ -18,19 +18,15 @@
        name: docker.service
        state: started
 
-   - name: Update the repository cache and install nginx 
+   - name: install pip
      ansible.builtin.apt:
        name: pip
        state: latest
-       update_cache: yes
 
-
-   - name: Update the repository cache and install nginx
+   - name: install flask with pip
      ansible.builtin.pip:
        name:
        - flask
-       - gunicorn
-       - requests 
 
    - name: Copy file with owner and permissions
      ansible.builtin.copy:
@@ -38,7 +34,7 @@
         dest: /home/ubuntu/
         mode: '0644'
 
-   - name: Run a script using an executable in a system path
+   - name: Run a script
      ansible.builtin.shell:
         cmd: python3 weather/app.py&
 

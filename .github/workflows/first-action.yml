@@ -41,7 +41,14 @@ jobs:
         with:
           push: true
           tags: edencoania/release:hello_actions-latest
-
-
+      
+      - name: deploy
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: ./playbook2.yaml
+          directory: ./deploy_tf_app/ansible/
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+              inventory: [all]
+            
 
 
