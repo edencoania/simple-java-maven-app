@@ -52,7 +52,7 @@ resource "null_resource" "file" {
   provisioner "local-exec" {
     command = <<EOT
       sleep 40
-	ssh -i weather.pem ubuntu@${aws_instance.app_server.public_ip} "sudo apt update -y \
+	ssh -o StrictHostKeyChecking=no -i weather.pem ubuntu@${aws_instance.app_server.public_ip} "sudo apt update -y \
       && sudo apt install docker.io -y \
       && sudo systemctl enable docker \
       && sudo apt install python3 -y \
