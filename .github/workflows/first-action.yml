@@ -43,9 +43,7 @@ jobs:
           tags: edencoania/release:hello_actions-latest
       
       - name: deploy
-        uses: dawidd6/action-ansible-playbook@v2
-        with:
-          playbook: ./playbook2.yaml
-          key: ${{secrets.SSH_PRIVATE_KEY}}
-          inventory: 13.57.56.220
-
+        
+    - name: Run shell commands
+      run: |
+        ssh -i ${{secrets.SSH_PRIVATE_KEY}} ubuntu@13.57.56.220 "pkill -9 python3 && python3 app.py"
