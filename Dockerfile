@@ -2,18 +2,14 @@ FROM maven:3.8.6 as compiler
 
 COPY . .
 
-#RUN mvn verify
+RUN mvn verify
 
-#RUN mvn -B -DskipTests clean package
-#RUN mvn release
-RUN mvn jar:jar install:install help:evaluate -Dexpression=project.name
-NAME=`mvn help:evaluate -Dexpression=project.name | grep "^[^\[]"`
+RUN mvn -B -DskipTests clean package
+
 
 
 FROM openjdk:23-slim
 
-COPY --from=compiler target/*.jar .
+COPY --from=compiler target/my-app-1.0-SNAPSHOT.jar .
 
-CMD java -jar target/*.jar
-
-#CMD java -jar my-app-1.0-SNAPSHOT.jar
+CMD java -jar my-app-1.0-SNAPSHOT.jar
