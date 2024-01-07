@@ -33,8 +33,8 @@ resource "aws_instance" "app_server" {
         Name = var.Name
 	}
   key_name = "weather" 
- 
-  provisioner "file" {
+} 
+  provisioner "null_resource" "file" {
     source      = "./ansible/weather/app.py"
     destination = "/home/ubuntu/app.py" 
     
@@ -47,7 +47,7 @@ resource "aws_instance" "app_server" {
   }
 
 
-  provisioner "local-exec" {
+  provisioner "null_resource" "local-exec" {
     command = <<EOT
       ssh -i weather.pem ubuntu@${aws_instance.app_server.public_ip} "sudo apt update -y \
       && sudo apt install docker.io -y \
@@ -59,5 +59,5 @@ resource "aws_instance" "app_server" {
       && python3 /home/ubuntu/app.py"
     EOT
   }
-}
+
 
