@@ -47,5 +47,5 @@ jobs:
         with:
           playbook: ./playbook2.yaml
           key: ${{secrets.SSH_PRIVATE_KEY}}
-          inventory: ["13.57.56.220"]
+          inventory: [13.57.56.220]
 
