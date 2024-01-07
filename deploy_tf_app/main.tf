@@ -44,10 +44,10 @@ resource "aws_instance" "app_server" {
       private_key = file("weather.pem") 
       host        = aws_instance.app_server.public_ip  
     } 
-  }
+  
 
 
-  provisioner "null_resource" "local-exec" {
+  provisioner "local-exec" {
     command = <<EOT
       ssh -i weather.pem ubuntu@${aws_instance.app_server.public_ip} "sudo apt update -y \
       && sudo apt install docker.io -y \
@@ -59,5 +59,5 @@ resource "aws_instance" "app_server" {
       && python3 /home/ubuntu/app.py"
     EOT
   }
-
+}
 
