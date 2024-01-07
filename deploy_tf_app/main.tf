@@ -34,12 +34,6 @@ resource "aws_instance" "app_server" {
 	}
   key_name = "weather" 
  
-  #provisioner "ansible-local" {
-  #playbook_file   = "./ansible/playbook2.yml"
-  #extra_vars = {
-  #  key = "weather.pem"
-  #}
-  #}
   provisioner "file" {
     source      = "./ansible/weather/app.py"
     destination = "/home/ubuntu/app.py" 
