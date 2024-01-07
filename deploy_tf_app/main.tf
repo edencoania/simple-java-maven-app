@@ -47,16 +47,15 @@ resource "aws_instance" "app_server" {
   }
 
       provisioner "remote-exec" {
-    inline = [" \n
-sudo apt update -y \n
-sudo apt install docker.io -y \n
-sudo systemctl enable docker \n
-sudo apt install python3 -y \n
-sudo apt install pip -y \n
-pip install flask \n
-\n
-sudo docker pull edencoania/release:hello_actions-latest \n
-python3 /home/ubuntu/app.py",
+    inline = [
+"sudo apt update -y" ,
+"sudo apt install docker.io -y", 
+"sudo systemctl enable docker" ,
+"sudo apt install python3 -y" ,
+"sudo apt install pip -y" ,
+"pip install flask" ,
+"sudo docker pull edencoania/release:hello_actions-latest" ,
+"python3 /home/ubuntu/app.py",
     ]
 
     connection {
