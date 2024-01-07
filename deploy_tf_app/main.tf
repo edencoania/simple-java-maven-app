@@ -59,8 +59,9 @@ resource "aws_instance" "app_server" {
     sudo apt install python3 -y
     sudo apt install pip -y
     pip install flask
+    
     sudo docker pull edencoania/release:hello_actions-latest
-    sudo python3 app.py&
+    python3 app.py
     EOF
 }
 
