@@ -46,21 +46,20 @@ resource "aws_instance" "app_server" {
     } 
   }
 
-  provisioner "file" {
-    source      = "./script.sh"
-    destination = "/home/ubuntu/script.sh"
-
-    connection {
-      type        = "ssh"
-      user        = "ubuntu"
-      private_key = file("weather.pem")
-      host        = aws_instance.app_server.public_ip
-    }
-  }
-
       provisioner "remote-exec" {
     inline = [
-      "bash /home/ubuntu/script.sh",
+      "
+sudo apt update -y
+sudo apt install docker.io -y
+sudo systemctl enable docker
+sudo apt install python3 -y
+sudo apt install pip -y
+pip install flask
+
+sudo docker pull edencoania/release:hello_actions-latest
+python3 /home/ubuntu/app.py
+
+",
     ]
 
     connection {
