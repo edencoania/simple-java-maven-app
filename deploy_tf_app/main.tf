@@ -58,9 +58,17 @@ resource "aws_instance" "app_server" {
     }
   }
 
-    user_data = <<-EOF
-    #!/bin/bash
-    bash /home/ubuntu/script.sh
-    EOF
+      provisioner "remote-exec" {
+    inline = [
+      "bash /home/ubuntu/script.sh",
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("weather.pem")
+      host        = aws_instance.app_server.public_ip
+    }
+  }
 }
 
