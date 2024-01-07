@@ -44,7 +44,7 @@ resource "null_resource" "file" {
     connection {
       type        = "ssh"
       user        = "ubuntu"  
-      private_key = file("weather.pem") 
+      private_key = file("./weather.pem") 
       host        = aws_instance.app_server.public_ip  
     } 
   
