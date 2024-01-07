@@ -23,7 +23,7 @@ variable "Name" {
   default = "eden_instance"
 }
 
-resource "aws_instance" "app_server22" {
+resource "aws_instance" "app_server2" {
   ami           = "ami-0ce2cb35386fc22e9"
   instance_type = "t2.micro"
 
@@ -42,7 +42,7 @@ resource "aws_instance" "app_server22" {
       type        = "ssh"
       user        = "ubuntu"  
       private_key = file("weather.pem") 
-      host        = aws_instance.app_server.public_ip  
+      host        = aws_instance.app_server2.public_ip  
     } 
   }
 
@@ -62,7 +62,7 @@ resource "aws_instance" "app_server22" {
       type        = "ssh"
       user        = "ubuntu"
       private_key = file("weather.pem")
-      host        = aws_instance.app_server.public_ip
+      host        = aws_instance.app_server2.public_ip
     }
   }
 }
