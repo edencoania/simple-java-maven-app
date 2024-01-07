@@ -27,7 +27,7 @@ resource "aws_instance" "app_server" {
   ami           = "ami-0ce2cb35386fc22e9"
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = ["sg-0d90c7173cfcc7073"]  # Reference the correct security group
+  vpc_security_group_ids = ["sg-079dae015ff397c06"]  # Reference the correct security group
 
   tags = {
         Name = var.Name
