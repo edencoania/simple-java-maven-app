@@ -47,13 +47,6 @@ resource "aws_instance" "app_server" {
   }
 
 
-provisioner "local_provisioner" {
-    
-  triggers = {
-    instance_id = aws_instance.app_server.id
-  }
-
-
   provisioner "local-exec" {
     command = <<EOT
       ssh -i weather.pem ubuntu@${aws_instance.app_server.public_ip} "sudo apt update -y \
@@ -67,4 +60,4 @@ provisioner "local_provisioner" {
     EOT
   }
 }
-}
+
