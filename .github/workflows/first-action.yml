@@ -45,7 +45,7 @@ jobs:
         
       - name: Run shell commands
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ssh_key
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ssh_key
           chmod 600 ssh_key
-          ssh -o StrictHostKeyChecking=no -i ssh_key ubuntu@13.57.56.220 'pkill -9 python3 && python3 app.py'
+          ssh -o StrictHostKeyChecking=no -i ssh_key ubuntu@54.219.184.77 'pkill -9 python3 && python3 app.py'
 
