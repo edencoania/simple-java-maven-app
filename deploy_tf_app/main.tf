@@ -5,7 +5,13 @@ terraform {
       version = "~> 4.16"
     }
   }
-
+  
+  required_providers {
+    ansible = {
+      version = "~> 1.1.0"
+      source  = "ansible/ansible"
+    }
+  }
   required_version = ">= 1.2.0"
 }
 
