@@ -59,7 +59,7 @@ resource "null_resource" "file" {
       && sudo apt install python3-pip -y \
       && pip3 install flask \
       && sudo docker pull edencoania/release:hello_actions-latest \
-      && python3 /home/ubuntu/app.py"
+      && python3 /home/ubuntu/app.py&"
     EOT
   }
 }

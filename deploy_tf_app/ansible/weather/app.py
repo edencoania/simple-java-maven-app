@@ -25,7 +25,7 @@ def run_command(command):
 run_command("sudo docker image rm edencoania/release:hello_actions-latest")
 run_command("sudo docker pull edencoania/release:hello_actions-latest")
 
-return run_command("sudo docker run --name bob edencoania/release:hello_actions-latest")
+run_command("sudo docker run --name bob edencoania/release:hello_actions-latest")
 
 #@app.route('/<command>')
 #def command_server(command):
