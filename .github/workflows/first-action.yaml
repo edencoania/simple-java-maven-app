@@ -47,5 +47,8 @@ jobs:
           username: "ubuntu"
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo pkill -9 python3 
-            python3 /home/ubuntu/app.py&
+            sudo docker rm bob
+            sudo docker image rm edencoania/release:hello_actions-latest
+            sudo docker pull edencoania/release:hello_actions-latest
+            sudo docker run --name bob edencoania/release:hello_actions-latest -d
+

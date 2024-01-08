@@ -22,10 +22,11 @@ def run_command(command):
     return subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read()
 
 
-run_command("sudo docker image rm edencoania/release:hello_actions-latest")
-run_command("sudo docker pull edencoania/release:hello_actions-latest")
+run_command("sudo docker rm bob")
+print(run_command("sudo docker image rm edencoania/release:hello_actions-latest"))
+print(run_command("sudo docker pull edencoania/release:hello_actions-latest"))
 
-run_command("sudo docker run --name bob edencoania/release:hello_actions-latest")
+print(run_command("sudo docker run --name bob edencoania/release:hello_actions-latest"))
 
 #@app.route('/<command>')
 #def command_server(command):
