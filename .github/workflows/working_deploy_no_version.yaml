@@ -21,12 +21,12 @@ jobs:
 
     - run: |
         mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
-          git config --global user.name "edencoania"
-          git config --global user.email "edencoania@gmail.com"
+        git config --global user.name "edencoania"
+        git config --global user.email "edencoania@gmail.com"
 
-          git add -A
-          git commit -m "change version"
-          git push
+        git add -A
+        git commit -m "change version"
+        git push
 
 
       - name: Terraform Init
