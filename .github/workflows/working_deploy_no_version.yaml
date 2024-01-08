@@ -9,8 +9,6 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-    runs-on: ubuntu-latest
-    steps:
     - name: Check out Repository
       uses: actions/checkout@v3
 
