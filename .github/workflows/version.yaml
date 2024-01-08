@@ -10,7 +10,14 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - name: use secret
+    - name: Check out Repository
+      uses: actions/checkout@v3
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: 17
+
+      - name: update version
         shell: bash
         run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
 
