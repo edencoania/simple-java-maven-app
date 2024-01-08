@@ -46,12 +46,12 @@ jobs:
       - name: Run shell commands
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: 54.219.184.77
+          host: 54.183.145.239
           username: "ubuntu"
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             #echo "${{secrets.SSH_PRIVATE_KEY}}" > ssh_key
           #chmod 600 ssh_keyi
           #sudo ssh -o StrictHostKeyChecking=no -i ssh_key ubuntu@54.219.184.77 '
-          sudo pkill -9 python3 && python3 app.py
-          #ubuntu@54.219.184.77 'python3 /home/ubuntu/app.py'
+          sudo pkill -9 python3 
+          python3 /home/ubuntu/app.py
