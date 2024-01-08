@@ -9,6 +9,47 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out Repository
+      uses: actions/checkout@v3
+
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: Build with Maven
+      run: |
+        mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit
+          git config --global user.name "edencoania"
+          git config --global user.email "edencoania@gmail.com"
+
+          git add -A
+          git commit -m "change version"
+          git push
+
+
+      - name: Terraform Init
+        uses: hashicorp/terraform-github-actions/init@v0.4.0
+        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TF_ACTION_WORKING_DIR: 'deploy_tf_app'
+          AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+      - name: Terraform Apply
+        uses: hashicorp/terraform-github-actions/apply@v0.4.0
+        env:
+          TF_ACTION_WORKING_DIR: 'deploy_tf_app'
+          AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_ACCESS_KEY }}        
+
+
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       
