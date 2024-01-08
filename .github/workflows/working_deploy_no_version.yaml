@@ -6,9 +6,6 @@ on:
       - master
 
 jobs:
-  #shell:
-  #  runs-on:ubuntu-latest
-  #  steps:
   docker:
     runs-on: ubuntu-latest
     steps:
@@ -29,13 +26,7 @@ jobs:
         with:
           push: true
           tags: edencoania/release:hello_github_actions-${{ github.sha }}
-      
-            #- name: Build and push
-        #uses: docker/build-push-action@v5
-          #with:
-          # push: true
-            #      tags: edencoania/release:hello_actions-${{ env.VERSION }}
-     
+       
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
@@ -51,4 +42,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             sudo pkill -9 python3 
-            python3 /home/ubuntu/app.py
+            python3 /home/ubuntu/app.py&
